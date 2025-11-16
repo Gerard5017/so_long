@@ -22,6 +22,7 @@ int ft_row_count(char *filename)
 char **ft_init_map(char *filename)
 {
     char **map;
+    char *line;
     int fd;
     int row_count;
     int i;
@@ -37,7 +38,11 @@ char **ft_init_map(char *filename)
         return (free(map), NULL);
     i = 0;
     while (i < row_count)
-        map[i++] = ft_strtrim(get_next_line(fd),"\r\n");
+    {
+        line = get_next_line(fd);
+        map[i++] = ft_strtrim(line,"\r\n");
+        free(line);
+    }
     return (map[i] = NULL, close(fd),map);
 }
 /* 18 lignes */

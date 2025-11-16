@@ -45,7 +45,9 @@ void init_nelem(t_nelem *n_elem)
     n_elem->n_C = 0;
     n_elem->n_E = 0;
     n_elem->n_P = 0;
-}
+    n_elem->x_P = 0;
+    n_elem->y_P = 0;
+;}
 
 int count_elem(char **map, t_nelem *n_elem)
 {
@@ -62,13 +64,15 @@ int count_elem(char **map, t_nelem *n_elem)
             else if (map[n_elem->n_row][col] == 'E')
                 n_elem->n_E += 1;
             else if (map[n_elem->n_row][col] == 'P')
+            {
                 n_elem->n_P += 1;
+                n_elem->x_P = col;
+                n_elem->y_P = n_elem->n_row;
+            }
             else if (map[n_elem->n_row][col] == '0' || map[n_elem->n_row][col] == '1')
                 ;
             else
-            {
                 return (ft_printf("row %d; col %d; char %c \n",n_elem->n_row+1, col+1, map[n_elem->n_row][col]),-1);
-            }
             col++;
         }
         if (n_elem->n_row == 0)
@@ -78,7 +82,7 @@ int count_elem(char **map, t_nelem *n_elem)
     return (1);
 }
 
-int check_error(char **map)
+int check_error(char **map, t_game *game)
 {
     t_nelem n_elem;
 
@@ -94,5 +98,11 @@ int check_error(char **map)
         return(ft_printf("Map must be Rectangular \n"),-1);
     if (is_surrounded(map,&n_elem) == -1)
         return(ft_printf("Map must be Surrounded by 1 \n"),-1);
+    game->width = n_elem.n_col;
+    game->height = n_elem.n_row;
+    game->player_x = n_elem.x_P;
+    game->player_y = n_elem.y_P;
+    game->collectibles = n_elem.n_C;
+    game->collected = 0;
     return 1;
 }

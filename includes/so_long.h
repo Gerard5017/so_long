@@ -14,6 +14,8 @@ typedef struct s_nelem
     int			n_C;
     int			n_E;
     int			n_P;
+    int         x_P;
+    int         y_P;
 }					t_nelem;
 
 typedef struct s_game
@@ -39,9 +41,15 @@ int ft_row_count(char *filename);
 
 // check_error.c
 int is_surrounded(char **map, t_nelem *n_elem);
-int check_error(char **map);
+int check_error(char **map, t_game *game);
 int count_elem(char **map, t_nelem *n_elem);
 void init_nelem(t_nelem *n_elem);
 int is_rectangular(char **map, t_nelem *n_elem);
+
+//init_window.c
+int init_window(t_game *game);
+int init_images(t_game *game);
+void draw_map(t_game *game);
+void free_images(t_game *game);
 
 #endif
