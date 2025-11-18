@@ -13,7 +13,15 @@ INCLUDES_MLX42_DIR = Libraries/MLX42/include/MLX42
 LIB = $(LIB_DIR)/lib.a
 
 # Sources
-SRC = $(wildcard source/*.c)
+SRC = source/check_error.c \
+	  source/check_path.c \
+	  source/init_map.c \
+	  source/init_window.c \
+	  source/so_long.c \
+	  source/close.c \
+	  source/hook.c \
+	  source/gameplay.c
+
 
 # Includes
 INCLUDES = -I$(INCLUDES_DIR) -I$(INCLUDES_MLX42_DIR) -I$(INCLUDES_LIB_DIR)

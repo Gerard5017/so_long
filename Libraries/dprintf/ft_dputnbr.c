@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putunbr.c                                       :+:      :+:    :+:   */
+/*   ft_dputnbr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emarette <emarette@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: lsellier <lsellier@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/28 22:50:43 by emarette          #+#    #+#             */
-/*   Updated: 2025/10/28 23:04:14 by emarette         ###   ########.fr       */
+/*   Created: 2024/10/23 03:00:00 by lsellier          #+#    #+#             */
+/*   Updated: 2025/03/30 20:26:14 by lsellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_dprintf.h"
 
-int	ft_putunbr(unsigned int n)
+int	ft_dputnbr(int nb, int fd)
 {
 	int	i;
+	int	sign;
 
+	sign = 1;
 	i = 0;
-	if (n / 10)
+	if (nb < 0)
 	{
-		i += ft_putunbr((n / 10));
-		i += ft_putunbr((n % 10));
+		i += ft_dputchar('-', fd);
+		sign *= -1;
 	}
-	else
-		i += ft_putchar(n + '0');
+	if (nb / 10)
+		i += ft_dputnbr((nb / 10 * sign), fd);
+	i += ft_dputchar((nb % 10) * sign + '0', fd);
 	return (i);
 }

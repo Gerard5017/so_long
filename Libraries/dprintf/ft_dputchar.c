@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   ft_dputchar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emarette <emarette@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: lsellier <lsellier@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/28 15:03:08 by emarette          #+#    #+#             */
-/*   Updated: 2025/10/30 03:25:53 by emarette         ###   ########.fr       */
+/*   Created: 2025/01/15 23:42:16 by lsellier          #+#    #+#             */
+/*   Updated: 2025/03/31 20:59:39 by lsellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_dprintf.h"
 
-int	ft_putchar(int c)
+int	ft_dputchar(int c, int fd)
 {
-	write(1, &c, 1);
+	write(fd, &c, 1);
 	return (1);
 }

@@ -1,76 +1,86 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_window.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emarette <emarette@student.42lehavre.fr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/16 23:14:47 by emarette          #+#    #+#             */
+/*   Updated: 2025/11/16 23:14:47 by emarette         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-void draw_map(t_game *game)
+void	draw_map(t_game *game)
 {
-    int row;
-    int col;
+	int	r;
+	int	c;
 
-    row = 0;
-    while (row < game->height)
-    {
-        col =0;
-        while (col < game->width)
-        {
-            if (game->map[row][col] == '1')
-                mlx_image_to_window(game->mlx, game->img_wall, col * 64, row * 64);
-            else if (game->map[row][col] == '0')
-                mlx_image_to_window(game->mlx, game->img_floor, col * 64, row * 64);
-            else if (game->map[row][col] == 'P')
-                mlx_image_to_window(game->mlx, game->img_player, col * 64, row * 64);
-            else if (game->map[row][col] == 'C')
-                mlx_image_to_window(game->mlx, game->img_collect, col * 64, row * 64);
-            else if (game->map[row][col] == 'E')
-                mlx_image_to_window(game->mlx, game->img_exit, col * 64, row * 64);
-            col++;
-        }
-        row++;
-    }
+	r = -1;
+	while (++r < game->height)
+	{
+		c = -1;
+		while (++c < game->width)
+		{
+			mlx_image_to_window(game->mlx, game->img_floor, c * 64, r * 64);
+			if (game->map[r][c] == '1')
+				mlx_image_to_window(game->mlx, game->img_wall, c * 64, r * 64);
+			else if (game->map[r][c] == 'P')
+				mlx_image_to_window(game->mlx, game->img_player, c * 64, r
+					* 64);
+			else if (game->map[r][c] == 'C')
+				mlx_image_to_window(game->mlx, game->img_collect, c * 64, r
+					* 64);
+			else if (game->map[r][c] == 'E')
+				mlx_image_to_window(game->mlx, game->img_exit, c * 64, r * 64);
+		}
+	}
 }
 
-int init_images(t_game *game)
+int	texture(t_game *game, mlx_image_t **img, char *path)
 {
-    mlx_texture_t *tx;
+	mlx_texture_t	*tx;
 
-    tx = mlx_load_png("textures/wall.png");
-    if (!tx)
-        return (-1);
-    game->img_wall = mlx_texture_to_image(game->mlx, tx);
-    mlx_delete_texture(tx);
-    tx = mlx_load_png("textures/floor.png");
-    if (!tx)
-        return (-1);
-    game->img_floor = mlx_texture_to_image(game->mlx, tx);
-    mlx_delete_texture(tx);
-    tx = mlx_load_png("textures/player.png");
-    if (!tx)
-        return (-1);
-    game->img_player = mlx_texture_to_image(game->mlx, tx);
-    mlx_delete_texture(tx);
-    tx = mlx_load_png("textures/collect.png");
-    if (!tx)
-        return (-1);
-    game->img_collect = mlx_texture_to_image(game->mlx, tx);
-    mlx_delete_texture(tx);
-    tx = mlx_load_png("textures/exit.png");
-    if (!tx)
-        return (-1);
-    game->img_exit = mlx_texture_to_image(game->mlx, tx);
-    mlx_delete_texture(tx);
-
-    if (!game->img_wall || !game->img_floor || !game->img_player
-        || !game->img_collect || !game->img_exit)
-        return (-1);
-    return (1);
+	tx = mlx_load_png(path);
+	if (!tx)
+		return (-1);
+	*img = mlx_texture_to_image(game->mlx, tx);
+	mlx_delete_texture(tx);
+	if (!*img)
+		return (-1);
+	return (1);
 }
 
-int init_window(t_game *game)
+int	init_images(t_game *game)
 {
-    game->mlx = mlx_init(game->width*64,game->height*64, "So_long", false);
-    if (!game->mlx)
-        return (-1);
-    if (init_images(game) < 0)
-            return (-1);
-    draw_map(game);
-    mlx_loop(game->mlx);
-    return 1;
+	if (texture(game, &game->img_wall, "textures/wall.png") < 0)
+		return (-1);
+	if (texture(game, &game->img_floor, "textures/floor.png") < 0)
+		return (-1);
+	if (texture(game, &game->img_player, "textures/player.png") < 0)
+		return (-1);
+	if (texture(game, &game->img_collect, "textures/collect.png") < 0)
+		return (-1);
+	if (texture(game, &game->img_exit, "textures/exit.png") < 0)
+		return (-1);
+	return (1);
+}
+
+int	init_window(t_game *game)
+{
+	game->mlx = mlx_init(game->width * 64, game->height * 64, "So_long",
+			false);
+	if (!game->mlx)
+		return (-1);
+	if (init_images(game) == -1)
+		return (-1);
+	draw_map(game);
+	init_hooks(game);
+	mlx_loop(game->mlx);
+	free_images(game);
+	if (game->mlx)
+		mlx_terminate(game->mlx);
+	free_map(game);
+	return (1);
 }

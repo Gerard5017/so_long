@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_dputunbr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emarette <emarette@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: lsellier <lsellier@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/28 15:26:03 by emarette          #+#    #+#             */
-/*   Updated: 2025/10/30 03:52:57 by emarette         ###   ########.fr       */
+/*   Created: 2024/10/24 00:55:53 by lsellier          #+#    #+#             */
+/*   Updated: 2025/03/30 20:26:55 by lsellier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_dprintf.h"
 
-int	ft_putstr(char *str)
+int	ft_dputunbr(int n, int fd)
 {
-	int	i;
+	int				i;
+	unsigned int	nb;
 
 	i = 0;
-	if (!str)
-		i += ft_putstr("(null)");
-	else
-	{
-		while (str[i])
-		{
-			i += ft_putchar(str[i]);
-		}
-	}
+	nb = (unsigned int)n;
+	if (nb > 9)
+		i += ft_dputnbr(nb / 10, fd);
+	i += ft_dputchar((nb % 10) + '0', fd);
 	return (i);
 }
