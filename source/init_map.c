@@ -27,7 +27,9 @@ int	ft_row_count(char *filename)
 	{
 		free(line);
 		row_count++;
+		line = get_next_line(fd);
 	}
+	free(line);
 	return (close(fd), row_count);
 }
 

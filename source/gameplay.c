@@ -6,7 +6,7 @@
 /*   By: emarette <emarette@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 11:53:22 by emarette          #+#    #+#             */
-/*   Updated: 2025/11/18 01:31:21 by emarette         ###   ########.fr       */
+/*   Updated: 2025/11/18 11:55:46 by emarette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	crush_tile(t_game *game, int next_y, int next_x)
 	game->player_x = next_x;
 	game->player_y = next_y;
 	game->map[game->player_y][game->player_x] = 'P';
+	game->n_step++;
+	ft_dprintf(1,"step :%d\n", game->n_step);
 	draw_map(game);
 }
 
@@ -49,7 +51,7 @@ void	move_player(t_game *game, char *dir)
 		next_x += 1;
 	else if (move_dir == 5)
 	{
-		ft_dprintf(1, "Congratulation You Have Win !!!\n");
+		ft_dprintf(1, "Congratulation You Have Won !!!\n");
 		close_game(game);
 	}
 	crush_tile(game, next_y, next_x);

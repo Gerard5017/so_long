@@ -47,6 +47,7 @@ typedef struct s_game
 	int			player_y;
 	int			collectibles;
 	int			collected;
+	int			n_step;
 }	t_game;
 
 // init_map.c
@@ -64,7 +65,9 @@ int		is_rectangular(char **map, t_nelem *n_elem);
 int		check_path(t_nelem *n_elem, char **map);
 void	free_visited_map(char **visited, int height);
 char	**strdup_map(char **map, int height);
-void	move_test(t_nelem *n_elem, char **map, char **visited, int *xy);
+void	move_test_c(t_nelem *n_elem, char **map, char **visited, int *xy);
+void	move_test_e(t_nelem *n_elem, char **map, char **visited, int *xy);
+
 
 // init_window.c
 int		init_window(t_game *game);
