@@ -6,7 +6,7 @@
 /*   By: emarette <emarette@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 11:53:22 by emarette          #+#    #+#             */
-/*   Updated: 2025/11/18 11:55:46 by emarette         ###   ########.fr       */
+/*   Updated: 2025/11/21 23:45:40 by emarette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	crush_tile(t_game *game, int next_y, int next_x)
 	game->player_y = next_y;
 	game->map[game->player_y][game->player_x] = 'P';
 	game->n_step++;
-	ft_dprintf(1,"step :%d\n", game->n_step);
+	ft_dprintf(1, "step :%d\n", game->n_step);
 	draw_map(game);
 }
 

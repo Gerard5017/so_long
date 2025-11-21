@@ -68,7 +68,6 @@ char	**strdup_map(char **map, int height);
 void	move_test_c(t_nelem *n_elem, char **map, char **visited, int *xy);
 void	move_test_e(t_nelem *n_elem, char **map, char **visited, int *xy);
 
-
 // init_window.c
 int		init_window(t_game *game);
 int		init_images(t_game *game);
